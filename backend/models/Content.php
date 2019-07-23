@@ -31,7 +31,7 @@ class Content extends \yii\db\ActiveRecord
             [['userId', 'file', 'description'], 'required'],
             [['userId'], 'integer'],
             [[ 'description'], 'string',  'max' => 255],
-            [['file'], 'file', 'extensions' => 'docx, png,pdf','maxFiles' => 5],
+            [['file'], 'file', 'extensions' => 'docx,jpeg, png,pdf','maxFiles' => 5],
         ];
     }
 
@@ -49,10 +49,10 @@ class Content extends \yii\db\ActiveRecord
     }
     public function upload($id)
     {
+     
        $con = new Content();
 
  $con->userId = $id;
- 
  $con->file = $this->file->name;
  $con->description = $this->description;
   return   $con->save();

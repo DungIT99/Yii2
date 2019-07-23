@@ -1,0 +1,19 @@
+table.table.table-hover {
+    width: 80%;
+    border: 2px solid cadetblue;
+    margin: 2% auto
+}
+.contain {
+    width: 50%;
+    margin: 0 auto;
+    padding: 5%;
+    background: lightblue;
+}
+.content{
+    padding: 5% ;
+    background: lightgoldenrodyellow;
+
+}
+.datepicker{
+    width: 80%;
+}

@@ -41,5 +41,10 @@ class UpdateCustomer extends Model
         ->execute();
       
     }
+    public function getCus($id){
+        $customer = new customers();
+        $cus = $customer::find()->where(['id'=>$id])->all();
+        return $cus;
+    }
    
 }

@@ -1,3 +1,4 @@
 $(document).ready(function(){
-        $('.da').datepicker({ dateFormat: 'dd/mm/yy'});
+        $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy'});
+        // alert("thos");
 })

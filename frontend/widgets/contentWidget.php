@@ -34,9 +34,10 @@ class contentWidget extends Widget
               
              }
             }
+            $this->content = $con->getContent($id);
         } 
         $this->model = $con;
-       $this->content = $con->getContent($id);
+     
        
     }
    

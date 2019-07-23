@@ -1,38 +1,23 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use common\models\loginCustomer;
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<div class="container">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div class="login">
 
-    <div class="">
-        
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'login']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-                <button type="button" class="btn btn-primary">login with facebook</button>
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-      
-    
-      
+                <?= $form->field($model, 'email')->textInput(['id' => 'email']) ?>
+                <?= $form->field($model, 'password')->passwordInput(['id' => 'password']) 
+                ?>
+               
+  <input type="submit" value="Sign In" style="width:89% "><br/>
+  <button type="button" class="btn btn-success" style="width:50% ">facebook</button>
+</div>
 
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-</div>
-  

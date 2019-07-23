@@ -16,6 +16,11 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\ContactForm;
 use frontend\models\CustomerSingup;
 use common\models\LoginCustomer;
+use frontend\models\UpdateCustomer;
+use common\models\Customers;
+use yii\web\UploadedFile;
+use backend\models\Content;
+use frontend\models\experience;
 
 /**
  * Site controller
@@ -76,10 +81,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index',[
-          
-        ]);
+        $cus = new UpdateCustomer();
+if(Yii::$app->user->identity){
+    if($cus->load(Yii::$app->request->post()) ){
+       
+        $cus->image = UploadedFile::getInstance($cus, 'image');
+            if( $cus->image){
+            $cus->image->saveAs('../../public/'.$cus->image->name);
+            $model = $cus->updateCus(Yii::$app->user->identity->id);
+            $ex = $cus->getCus(Yii::$app->user->identity->id);
+            return $this->render('index',['model'=> $cus,'ex'=>$ex]);
+}
     }
+    return $this->render('index',['model'=>$cus,'ex'=>'']);
+}
+return $this->render('index',['model'=>$cus,'ex'=>'']);
+    }
+    
 
     /**
      * Logs in a user.
@@ -87,7 +105,8 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionLogincustomer()
-    {
+    { 
+        $this->layout=['mainelse'];
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -110,11 +129,10 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        echo "sadsad";
-        // var_dump("sadsa"); die;
-        // Yii::$app->user->logout();
+       
+        Yii::$app->user->logout();
 
-        // return $this->goHome();
+        return $this->goHome();
     }
 
     /**
@@ -168,7 +186,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        return $this->render('login', [
+        return $this->render('signup', [
             'model' => $model,
         ]);
     }
@@ -267,4 +285,43 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+    public function actionContent(){
+       
+        $con = new Content();
+        if(Yii::$app->user->identity){
+            $id = Yii::$app->user->identity->id;
+            
+        if($con->load(Yii::$app->request->post())){
+      
+            $con->file = UploadedFile::getInstance($con, 'file');
+            
+            if($con->file){
+                $con->file->saveAs('../../public/'.$con->file->name);
+             $con->upload($id);
+             $content = $con->getContent($id);
+              return $this->render('content',['model'=>$con,'content'=>$content]);
+             }
+             return $this->render('content',['model'=>$con ,'content'=>'']);
+            }
+           
+        }
+        return $this->render('content',['model'=>$con,'content'=>'']);
+    }
+
+    public function actionExperience(){
+        $experience = new experience();
+        if(Yii::$app->user->identity){
+            $id = Yii::$app->user->identity->id;
+         if ($experience->load(Yii::$app->request->post()) ){    
+             $experience->experience($id);
+             $ex = $experience->getExperiences($id);
+          
+              return $this->render('experience',['model'=>$experience,'ex'=>$ex]);
+         }
+        
+        
+         return $this->render('experience',['model'=>$experience,'ex'=>'']);
+    }
+    return $this->render('experience',['model'=>$experience,'ex'=>'']);
+}
 }
