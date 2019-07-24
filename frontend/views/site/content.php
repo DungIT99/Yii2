@@ -40,13 +40,13 @@ ExAsset::register($this);
                     </tr>
                 </thead>
                 <tbody>
-<?php if ($content) : foreach($content as $c):$n=1 ?>
+<?php $n=1  ;if ($content) : foreach($content as $c): ?>
                     <tr>
                         <td><?php echo $n ?></td>
                         <td><?php echo $c->file ?></td>
                         <td><?php  echo $c->description  ?></td>
                     </tr>
-<?php $n+=1;endforeach ;endif; ?>
+<?php $n=$n+1;endforeach ;endif; ?>
                 </tbody>
             </table>
             </div>     

@@ -102,15 +102,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $cus = new UpdateCustomer();
-        // $session = Yii::$app->session;
-        // var_dump($session['attributes']);die;
+
        if(Yii::$app->user->identity){
     $ex = $cus->getCus(Yii::$app->user->identity->id);
     if($cus->load(Yii::$app->request->post()) ){
      
             $cus->image = UploadedFile::getInstance($cus, 'image');
             if( $cus->image){
-            $cus->image->saveAs('../../public/'.$cus->image->name);
+            $cus->image->saveAs('public/'.$cus->image->name);
             $model = $cus->updateCus(Yii::$app->user->identity->id);
            
             return $this->render('index',['model'=> $cus,'ex'=>$ex]);
@@ -321,7 +320,7 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
             $con->file = UploadedFile::getInstance($con, 'file');
             
             if($con->file){
-                $con->file->saveAs('../../public/'.$con->file->name);
+                $con->file->saveAs('public/'.$con->file->name);
              $con->upload($id);
             
               return $this->render('content',['model'=>$con,'content'=>$content]);

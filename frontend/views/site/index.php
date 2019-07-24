@@ -58,8 +58,8 @@ ExAsset::register($this);
                 </thead>
                 <tbody>
 <?php if($ex) : foreach ($ex as $e ):$n=1  ?>
-                    <tr>
-                       <td><img src="<?=Yii::$app->getUrlManager()->getBaseUrl()?>/public/<?php echo $e->image ?>" ></td>
+                    <tr >
+                       <td ><img width="70px" src="<?=Yii::$app->getUrlManager()->getBaseUrl()?>/public/<?php echo $e->image ?>" ></td>
                        <td><?php echo $e->firstname ?></td>
                        <td><?php echo $e->lastname ?></td>
                        <td><?php echo $e->phone ?></td>

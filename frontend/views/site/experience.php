@@ -52,7 +52,7 @@ ExAsset::register($this);
                     </tr>
                 </thead>
                 <tbody>
-<?php if ($ex) :foreach($ex as $m):$n=1 ?>
+<?php $n=1; if ($ex) :foreach($ex as $m): ?>
                     <tr>
                         <td><?php echo $n ?></td>
                         <td><?php echo $m->start_at ?></td>
