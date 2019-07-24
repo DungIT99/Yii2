@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m190720_122621_customers
+ * Class m190723_131558_customers
  */
-class m190720_122621_customers extends Migration
+class m190723_131558_customers extends Migration
 {
     /**
      * {@inheritdoc}
@@ -14,7 +14,6 @@ class m190720_122621_customers extends Migration
     {
 
     }
-
     public function up()
     {
         $tableOptions = null;
@@ -37,7 +36,7 @@ class m190720_122621_customers extends Migration
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'verification_token'=> $this->string()->defaultValue(null),
-            'address'=>$this->string()
+            'birthday'=>$this->string()
         ], $tableOptions);
     }
 

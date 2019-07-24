@@ -30,12 +30,14 @@ $this->title = 'Signup';
   <div class="right">
     <span class="loginwith">Sign in with<br />social network</span>
     
-    <button class="social-signin facebook">singup with facebook</button>
-    <button class="social-signin twitter">singup with Twitter</button>
-    <button class="social-signin google">singup with Google+</button>
+    <?=yii\authclient\widgets\AuthChoice::widget([
+    'baseAuthUrl'=>['site/auth']
+      ]);
+      ?>
   </div>
   <div class="or">OR</div>
-  
+
+ 
   <?php ActiveForm::end(); ?>
-  
+
 </div>

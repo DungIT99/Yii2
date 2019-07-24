@@ -9,8 +9,9 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use common\models\loginCustomer;
 ?>
-
+<div class="contein">
 <div class="login">
+
 
             <?php $form = ActiveForm::begin(['id' => 'login']); ?>
 
@@ -19,7 +20,12 @@ use common\models\loginCustomer;
                 ?>
                
   <input type="submit" value="Sign In" style="width:89% "><br/>
-  <button type="button" class="btn btn-success" style="width:50% ">facebook</button>
+  <!-- <button type="button" class="btn btn-success" style="width:50% ">facebook</button> -->
+  <?=yii\authclient\widgets\AuthChoice::widget([
+'baseAuthUrl'=>['site/auth']
+  ])
+  ?>
 </div>
-<div class="shadow"></div>
+
             <?php ActiveForm::end(); ?>
+            </div>

@@ -14,7 +14,7 @@ class UpdateCustomer extends Model
     public $firstname;
     public $lastname;
     public $phone;
-    public $address;
+    public $birthday;
     public $image;
     public $email;
 
@@ -26,9 +26,9 @@ class UpdateCustomer extends Model
     public function rules()
     {
         return [
-            [['firstname', 'lastname', 'phone', 'address','image'], 'required'],
+            [['firstname', 'lastname', 'phone', 'birthday','image'], 'required'],
             ['email', 'email'],
-            [['firstname', 'lastname', 'phone', 'address'], 'string', 'min' => 2, 'max' => 255],
+            [['firstname', 'lastname', 'phone',"birthday"], 'string', 'min' => 2, 'max' => 255],
             [['image'], 'file', 'extensions' => ' png,jpg'],
         ];
     }
@@ -37,7 +37,7 @@ class UpdateCustomer extends Model
        $customer = new customers();
     
         Yii::$app->db->createCommand("UPDATE customers SET firstname = '$this->firstname', lastname='$this->lastname', phone='$this->phone' 
-        , address='$this->address', image='$this->image', email ='$this->email' WHERE id=$id")
+        , birthday='$this->birthday', image='$this->image', email ='$this->email' WHERE id=$id")
         ->execute();
       
     }

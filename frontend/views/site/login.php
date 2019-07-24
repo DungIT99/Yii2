@@ -4,11 +4,12 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use common\models\loginCustomer;
+use frontend\assets\loginAsset;
 
+loginAsset::register($this);
 
 ?>
 
-<div class="login">
 
             <?php $form = ActiveForm::begin(['id' => 'login']); ?>
 
@@ -16,8 +17,12 @@ use common\models\loginCustomer;
                 <?= $form->field($model, 'password')->passwordInput(['id' => 'password']) 
                 ?>
                
-  <input type="submit" value="Sign In" style="width:89% "><br/>
-  <button type="button" class="btn btn-success" style="width:50% ">facebook</button>
+  <input type="submit" value="Sign In" style="width:84% "><br/>
+  <?=yii\authclient\widgets\AuthChoice::widget([
+'baseAuthUrl'=>['site/auth']
+  ])
+  ?>
 </div>
 
             <?php ActiveForm::end(); ?>
+            </div>

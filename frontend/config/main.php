@@ -16,6 +16,17 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '1814921608654250',
+                    'clientSecret' => '62899b4b44c1668a2a8bf9a10a29e6d5',
+                ],
+                // etc.
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

@@ -30,6 +30,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+    public $successUrl='Success';
     public function behaviors()
     {
         return [
@@ -71,8 +72,26 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'auth'=>[
+                'class'=>'yii\authclient\AuthAction',
+                'successCallback' =>[$this,'successCallback']
+            ]
         ];
     }
+    public function successCallback($client){
+        $customer = new Customers();
+        $attributes = $client->getUserAttributes();
+        $user = $customer::find()->where(['email'=>$attributes['email']])->one();
+        if(!empty($user)){
+             Yii::$app->user->login($user);
+        }else{
+            $session = Yii::$app->session;
+            $session['attributes']=$attributes;
+
+            $this->successUrl = \yii\helpers\Url::to(['index']);
+        }
+    }
+    
 
     /**
      * Displays homepage.
@@ -82,18 +101,22 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $cus = new UpdateCustomer();
-if(Yii::$app->user->identity){
+        // $session = Yii::$app->session;
+        // var_dump($session['attributes']);die;
+       if(Yii::$app->user->identity){
+    $ex = $cus->getCus(Yii::$app->user->identity->id);
     if($cus->load(Yii::$app->request->post()) ){
-       
-        $cus->image = UploadedFile::getInstance($cus, 'image');
+     
+            $cus->image = UploadedFile::getInstance($cus, 'image');
             if( $cus->image){
             $cus->image->saveAs('../../public/'.$cus->image->name);
             $model = $cus->updateCus(Yii::$app->user->identity->id);
-            $ex = $cus->getCus(Yii::$app->user->identity->id);
+           
             return $this->render('index',['model'=> $cus,'ex'=>$ex]);
 }
+      
     }
-    return $this->render('index',['model'=>$cus,'ex'=>'']);
+    return $this->render('index',['model'=>$cus,'ex'=> $ex]);
 }
 return $this->render('index',['model'=>$cus,'ex'=>'']);
     }
@@ -106,7 +129,6 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
      */
     public function actionLogincustomer()
     { 
-        $this->layout=['mainelse'];
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -290,7 +312,7 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
         $con = new Content();
         if(Yii::$app->user->identity){
             $id = Yii::$app->user->identity->id;
-            
+            $content = $con->getContent($id);
         if($con->load(Yii::$app->request->post())){
       
             $con->file = UploadedFile::getInstance($con, 'file');
@@ -298,13 +320,14 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
             if($con->file){
                 $con->file->saveAs('../../public/'.$con->file->name);
              $con->upload($id);
-             $content = $con->getContent($id);
+            
               return $this->render('content',['model'=>$con,'content'=>$content]);
              }
-             return $this->render('content',['model'=>$con ,'content'=>'']);
-            }
            
+            }
+            return $this->render('content',['model'=>$con ,'content'=>$content]);
         }
+      
         return $this->render('content',['model'=>$con,'content'=>'']);
     }
 
@@ -312,15 +335,14 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
         $experience = new experience();
         if(Yii::$app->user->identity){
             $id = Yii::$app->user->identity->id;
+            $ex = $experience->getExperiences($id);
          if ($experience->load(Yii::$app->request->post()) ){    
              $experience->experience($id);
-             $ex = $experience->getExperiences($id);
-          
               return $this->render('experience',['model'=>$experience,'ex'=>$ex]);
          }
         
         
-         return $this->render('experience',['model'=>$experience,'ex'=>'']);
+         return $this->render('experience',['model'=>$experience,'ex'=>$ex]);
     }
     return $this->render('experience',['model'=>$experience,'ex'=>'']);
 }

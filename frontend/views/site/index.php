@@ -7,7 +7,13 @@ ExAsset::register($this);
 ?>
 <div class="content">
 <div class="contain">
+    <?php 
+    $session = Yii::$app->session;
+       
+    ?>
+
 <?php $form = ActiveForm::begin(); ?>
+
 <div class="form-group">
         <?= $form->field($model, 'image')->fileInput() ?>
     </div>
@@ -28,12 +34,12 @@ ExAsset::register($this);
  
 
     <div class="form-group">
-        <?= $form->field($model, 'address')->textInput() ?>
+        <?= $form->field($model, 'birthday')->textInput(['class'=>'datepicker']) ?>
         
     </div>
    
 
-    <input type="submit" value="update" style="width:20% "><br/>
+    <input type="submit" value="update"  class ="btn btn-success"style="width:20% "><br/>
   
     <?php ActiveForm::end(); ?>
    
@@ -47,7 +53,7 @@ ExAsset::register($this);
                         <th>LastName</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <th>Address</th>
+                        <th>birthday</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,9 +64,10 @@ ExAsset::register($this);
                        <td><?php echo $e->lastname ?></td>
                        <td><?php echo $e->phone ?></td>
                        <td><?php echo $e->email ?></td>
-                       <td><?php echo $e->address ?></td>
+                       <td><?php print( $e->birthday)?></td>
                     </tr>
 <?php $n+=1;endforeach;endif ?>
+
                 </tbody>
             </table>
             </div>     
