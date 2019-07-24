@@ -46,5 +46,10 @@ class UpdateCustomer extends Model
         $cus = $customer::find()->where(['id'=>$id])->all();
         return $cus;
     }
-   
+   public function insertCus($session){
+    $customer = new customers();
+    $customer->email = $session['email'];
+    $customer->firstname = $session['name'];
+    return $customer->save();
+   }
 }

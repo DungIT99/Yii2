@@ -80,6 +80,7 @@ class SiteController extends Controller
     }
     public function successCallback($client){
         $customer = new Customers();
+        $cus = new UpdateCustomer();
         $attributes = $client->getUserAttributes();
         $user = $customer::find()->where(['email'=>$attributes['email']])->one();
         if(!empty($user)){
@@ -87,8 +88,8 @@ class SiteController extends Controller
         }else{
             $session = Yii::$app->session;
             $session['attributes']=$attributes;
-
-            $this->successUrl = \yii\helpers\Url::to(['index']);
+            $customer = $cus->insertCus($session['attributes']);
+           
         }
     }
     
@@ -129,6 +130,7 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
      */
     public function actionLogincustomer()
     { 
+   
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -142,6 +144,7 @@ return $this->render('index',['model'=>$cus,'ex'=>'']);
                 'model' => $model,
             ]);
         }
+       
     }
 
     /**

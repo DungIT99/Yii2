@@ -45,10 +45,10 @@ ExAsset::register($this);
                 <thead>
                     <tr style="">
                         <th>STT</th>
-                        <th>start_at</th>
-                        <th>end_at</th>
-                        <th>namecompany</th>
-                        <th>aboutjob</th>
+                        <th>Start at</th>
+                        <th>End at</th>
+                        <th>Name Company</th>
+                        <th>About Jobs</th>
                     </tr>
                 </thead>
                 <tbody>
