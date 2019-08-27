@@ -38,11 +38,7 @@ class experience extends Model
      */
     public function experience($id)
     { 
-       
-        // if (!$this->validate()) {
-        //     return null;
-        // }
-        // echo "this is me";die;
+    
         $experience = new Experiences();
      
         $experience->start_at = $this->start_at;

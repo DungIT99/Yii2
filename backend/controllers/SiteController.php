@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use backend\models\SignupForm;
 
 /**
  * Site controller
@@ -22,8 +23,14 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','index',],
                         'allow' => true,
+                        
+                    ],
+                    [
+                        'actions' => ['signup', 'error'],
+                        'allow' => true,
+                        
                     ],
                     [
                         'actions' => ['logout', 'index'],
@@ -78,7 +85,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            $model->password = '';
+            $model->password ='';
 
             return $this->render('login', [
                 'model' => $model,
@@ -96,5 +103,23 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    public function actionSignup(){
+        $user = new SignupForm();
+        
+          
+        if ($user->load(Yii::$app->request->post())&& $user->signup() ) {
+           
+           
+           $user->signup();
+            // if($user->save()){
+               
+                Yii::$app->session->setFlash('success', 'Chào mừng đến với trang Tìm việc IT');
+                return $this->goHome();
+            // }
+           
+        }
+        
+        return $this->render('signup',['model'=>$user]);
     }
 }

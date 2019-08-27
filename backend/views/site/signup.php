@@ -9,7 +9,7 @@ use frontend\assets\SingupAsset;
 SingupAsset::register($this);
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use frontend\models\CustomerSingup;
+use backend\models\SignupForm;
 
 
 $this->title = 'Signup';
@@ -30,12 +30,11 @@ $this->title = 'Signup';
   <div class="right">
     <span class="loginwith">Sign in with<br />social network</span>
     
-    <button class="social-signin facebook">singup with facebook</button>
-    <button class="social-signin twitter">singup with Twitter</button>
-    <button class="social-signin google">singup with Google+</button>
+   
   </div>
   <div class="or">OR</div>
-  
+
+ 
   <?php ActiveForm::end(); ?>
-  
+
 </div>
